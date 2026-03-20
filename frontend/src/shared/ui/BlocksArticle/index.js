@@ -1,1 +1,1 @@
-export { default } from './BlockArticles';
+export { default } from './BlockArticles'

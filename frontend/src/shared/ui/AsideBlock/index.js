@@ -1,1 +1,1 @@
-export { default } from './AsideBlock'
+export { default } from './AsideBlock';
