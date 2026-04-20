@@ -30,8 +30,15 @@ jobs:
         run: |
           cd frontend
           npx prettier --check "src/**/*.{js,jsx,ts,tsx,json}"
+          
+          
 
-      - name: Check pytests Python
-        run: |
-          cd backend
-          pytest tests/
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install python dependencies
+        run: pip install -r backend/requirements.txt
+
+      - name: Run pytest
+        run: pytest backend/tests/
