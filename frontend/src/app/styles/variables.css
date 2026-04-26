@@ -2,7 +2,7 @@
     --simple_text_size: clamp(1.2rem, 1.7vw + 0.3rem, 1.8rem);
     --smalle_text_size: clamp(1.1rem, 4vw + 0.3rem, 1.3rem);
 
-    --const_font_white_color: rgb(246, 246, 246);
+    --const_font_white_color: rgb(233, 233, 233);
     --const_font_black_color:rgb(17, 17, 17);
     --const_font_blue_color: #037DC9;
     --const_font_gold_color: #F8D743;
@@ -14,7 +14,7 @@
         rgb(102, 102, 102) 70%
     );
 
-    --h1_font_size: clamp(1.6rem, 4vw + 0.4rem, 3rem);
+    --h1_font_size: clamp(1.5rem, 4vw + 0.3rem, 2.8rem);
     --h2_font_size: clamp(1.4rem, 3vw + 0.3rem, 2.4rem);
     --h3_font_size: clamp(1.4rem, 2vw + 0.3rem, 2.2rem);
     --h4_font_size: clamp(1.3rem, 1.8vw + 0.3rem, 2.1rem);

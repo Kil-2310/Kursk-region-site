@@ -1,31 +1,26 @@
 import styles from './SimpleCards.module.scss';
 import dataSimpleCards from './dataSimpleCards';
 
-const SimpleCards = ({ TitleSimpleCards }) => {
-    const categoryData = dataSimpleCards[TitleSimpleCards];
-
-    if (!categoryData) {
-        return null;
-    }
+const SimpleCards = ({ simpleCardsTitle }) => {
+    const data = dataSimpleCards[simpleCardsTitle];
 
     return (
-        <section className={styles.container}>
-            {categoryData.map((category, idx) => (
-                <aside key={idx} className={styles.simple_card}>
-                    <strong
-                        dangerouslySetInnerHTML={{
-                            __html: `${category.icon} ${category.category}`,
-                        }}
-                    />
+        <section>
+            {data.map((category, idx) => (
+                <div key={idx} className={styles.simple_card}>
+                    <h3>{category.category}</h3>
 
                     <ul>
-                        {category.items.map((item, itemIdx) => (
-                            <li key={itemIdx}>
-                                {item.icon} <a href="${item.href}">{item.text}</a>
+                        {category.items.map((item, index) => (
+                            <li key={index}>
+                                {item.icon}{' '}
+                                <a target="_blanck" href={item.href}>
+                                    {item.text}
+                                </a>
                             </li>
                         ))}
                     </ul>
-                </aside>
+                </div>
             ))}
         </section>
     );

@@ -1,13 +1,22 @@
 import dataChronologicalSequence from './dataChronologicalSequence';
 import styles from './ChronologicalSequence.module.scss';
 import Image from 'next/image';
+import { memo } from 'react';
 
 const ChronologicalSequence = ({ ChronologicalSequenceTitle }) => {
     const data = dataChronologicalSequence[ChronologicalSequenceTitle];
 
     const renderImageBlock = (img) => {
         return img ? (
-            <Image src={img} alt="Декоративное изображение" width={300} height={300} />
+            <div>
+                <Image
+                    src={img}
+                    alt="Декоративное изображение"
+                    width={300}
+                    height={300}
+                    className="html_image"
+                />
+            </div>
         ) : (
             <div className={`${styles.darck_bg}`}></div>
         );
@@ -18,12 +27,16 @@ const ChronologicalSequence = ({ ChronologicalSequenceTitle }) => {
             {data.map((item, index) => (
                 <aside key={index}>
                     {item.html_id ? (
-                        <strong id={item.html_id}>{item.year}</strong>
+                        <div className={styles.title} id={item.html_id}>
+                            <strong>{item.title}</strong>
+                        </div>
                     ) : (
-                        <strong>{item.year}</strong>
+                        <div className={styles.title}>
+                            <strong>{item.title}</strong>
+                        </div>
                     )}
 
-                    <div className={`${styles.chronological_sequence__flex_block}`}>
+                    <div className={`${styles.flex_block}`}>
                         {index % 2 === 0 ? (
                             <>
                                 <p>{item.description}</p>
@@ -42,4 +55,4 @@ const ChronologicalSequence = ({ ChronologicalSequenceTitle }) => {
     );
 };
 
-export default ChronologicalSequence;
+export default memo(ChronologicalSequence);

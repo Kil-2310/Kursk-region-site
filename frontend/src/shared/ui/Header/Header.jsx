@@ -4,14 +4,19 @@ import styles from './Header.module.scss';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { memo, useRef } from 'react';
 
 const Header = () => {
     const router = useRouter();
+    const headerButton = useRef(null);
+
+    const closeBurgerMenu = () => {
+        headerButton.current.checked = false;
+    };
 
     const ChangeLocation = (e) => {
         const to = e.target.value;
         e.target.value = '';
-
         router.push(to);
     };
 
@@ -20,7 +25,11 @@ const Header = () => {
             <nav className={styles.pc_menu}>
                 <ul>
                     <li className={styles.logo}>
-                        <Link href="/" aria-label="На главную">
+                        <a
+                            href="https://adm2.rkursk.ru/"
+                            target="_blank"
+                            aria-label="На официальный сайт"
+                        >
                             <Image
                                 src="/images/global/coat_arms_kursk_region.png"
                                 alt="Герб Курской области"
@@ -28,7 +37,7 @@ const Header = () => {
                                 height={60}
                                 priority
                             />
-                        </Link>
+                        </a>
                     </li>
 
                     <li className={styles.title_region}>
@@ -154,52 +163,72 @@ const Header = () => {
                     </li>
 
                     <li>
-                        <select name="cities" defaultValue="" aria-label="Города">
+                        <select
+                            name="cities"
+                            defaultValue=""
+                            aria-label="Города"
+                            onChange={ChangeLocation}
+                        >
                             <option value="">Города</option>
-                            <option value="/cities">Города Курской области</option>
+                            <option value="" disabled>
+                                В разработке
+                            </option>
+                            {/* <option value="/cities">Города Курской области</option> */}
                         </select>
                     </li>
                 </ul>
             </nav>
 
             <nav className={styles.burger_menu}>
-                <Link href="/" className={styles.logo} aria-label="На главную">
+                <a
+                    href="https://adm2.rkursk.ru/"
+                    target="_blank"
+                    className={styles.logo}
+                    aria-label="На официальный сайт"
+                >
                     <Image
                         src="/images/global/coat_arms_kursk_region.png"
                         alt="Герб Курской области"
-                        width={40}
+                        width={50}
                         height={48}
                         priority
                     />
-                </Link>
+                </a>
 
-                <div className={styles.ui} aria-label="Открыть меню">
+                <div className={styles.ui} aria-label="Открыть меню" onClick={closeBurgerMenu}>
                     <div></div>
                     <div></div>
                     <div></div>
                 </div>
 
-                <input type="checkbox" className={styles.checkbox} />
+                <input type="checkbox" className={styles.checkbox} ref={headerButton} />
 
                 <ul className={styles.panel}>
+                    <li onClick={closeBurgerMenu}>
+                        <Link href="/">Главная страница</Link>
+                    </li>
+
                     <li>
                         <details>
                             <summary>Культура</summary>
                             <ul>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
+                                    <Link href="/culture">Культура Курской области</Link>
+                                </li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/culture#directions">
                                         Основные направления культуры
                                     </Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/culture#nightingale">Курский соловей</Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/culture#personalities">
                                         Известные личности Курской области
                                     </Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/culture#traditions">Традиции Курской области</Link>
                                 </li>
                             </ul>
@@ -210,34 +239,37 @@ const Header = () => {
                         <details>
                             <summary>История</summary>
                             <ul>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
+                                    <Link href="/history">История Курской области</Link>
+                                </li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/history#history_kursk_region">
                                         История развития региона
                                     </Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/history#revolution">Революция 1917 года</Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/history#kursk_npp">Курская АЭС</Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/history#kursk_npp_2">Курская АЭС-2</Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/history#consequences_chernobyl">
                                         Последствия Чернобыльской катастрофы
                                     </Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/history#kursk_bulge">Курская дуга 1943 года</Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/history#heroes_our_time">
                                         Герои нашего времени
                                     </Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/history#museum_ponyri">
                                         Современные музеи, посвященные Специальной Военной Операции
                                     </Link>
@@ -250,25 +282,28 @@ const Header = () => {
                         <details>
                             <summary>Экология</summary>
                             <ul>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
+                                    <Link href="/ecology">Экология Курской области</Link>
+                                </li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/ecology#environmental_characteristics">
                                         3 основные характеристики экологии
                                     </Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/ecology#state_nature_reserve">
                                         Центрально-Чернозёмный государственный заповедник
                                     </Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/ecology#environmental_issues">
                                         Проблемы экологии
                                     </Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/ecology#red_book">Красная книга</Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/ecology#forest_conservation_project">
                                         Проект &quot;Сохранение лесов&quot;
                                     </Link>
@@ -281,17 +316,20 @@ const Header = () => {
                         <details>
                             <summary>Экономика</summary>
                             <ul>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
+                                    <Link href="/economy">Экономика Курской области</Link>
+                                </li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/economy#vrp_analysis">
                                         Анализ ВРП Курской области
                                     </Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/economy#table_vrp">
                                         Сравнительная таблица ключевых направлений ВРП
                                     </Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/economy#kursk_magnetic_anomaly">
                                         Курская магнитная аномалия
                                     </Link>
@@ -304,17 +342,20 @@ const Header = () => {
                         <details>
                             <summary>Туризм</summary>
                             <ul>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
+                                    <Link href="/tourism">Туризм Курской области</Link>
+                                </li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/tourism#tourism_infrastructure">
                                         Инфраструктура туризма
                                     </Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/tourism#attractions">
                                         Популярные места и достопримечательности
                                     </Link>
                                 </li>
-                                <li>
+                                <li onClick={closeBurgerMenu}>
                                     <Link href="/tourism#natural_attractions">
                                         Уникальные природные объекты
                                     </Link>
@@ -323,7 +364,7 @@ const Header = () => {
                         </details>
                     </li>
 
-                    <li>
+                    <li onClick={closeBurgerMenu}>
                         <Link href="/reviews">Отзывы</Link>
                     </li>
 
@@ -331,8 +372,11 @@ const Header = () => {
                         <details>
                             <summary>Города</summary>
                             <ul>
-                                <li>
-                                    <Link href="/cities">Города Курской области</Link>
+                                <li onClick={closeBurgerMenu}>
+                                    <option value="" disabled>
+                                        В разработке
+                                    </option>
+                                    {/* <Link href="/cities">Города Курской области</Link> */}
                                 </li>
                             </ul>
                         </details>
@@ -343,4 +387,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default memo(Header);

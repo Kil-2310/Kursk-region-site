@@ -1,6 +1,11 @@
 .privacy_policy{
     padding: 5vw;
 
+    p,
+    h1{
+        color: var(--changeable_font_color);
+    }
+
     p{
         font-size: var(--smalle_text_size);
     }

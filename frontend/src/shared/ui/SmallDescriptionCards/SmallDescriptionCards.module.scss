@@ -1,52 +1,40 @@
-.container_small_cards{
+@use '@/app/styles/mixins' as *;
 
-    &__card{
-        margin: auto;
+.card{
+    margin: auto;
+    width: 90%;
 
-        width: 90%;
+    h3{
+        padding: 1em;
+        font-weight: bold;
+        color: var(--changeable_font_color);
+        text-align: left;
+    }
 
-        h3{
-            padding: 1em;
-            font-weight: bold;
-            color: var(--changeable_font_color);
-            font-size: var(--h3_font_size);
+    div{
+        position: relative;
+        padding: 0.3em;
+        
+        img{
+            @include img_positon();
+            border-radius: 10px;
         }
 
-        div{
-            width: 100%;
-            height: 100%;
+        p,
+        a{
             position: relative;
+            z-index: 2;
 
-            img{
-                position: absolute;
+            font-size: var(--simple_text_size);
+            padding: 0.4em;
+        }
 
-                width: 100%;
-                height: 100%;
-                border-radius: 10px;
+        p{
+            color: var(--const_font_white_color);
+        }
 
-                object-fit: cover;
-                filter: brightness(0.4);
-            }
-
-            div{
-                position: relative;
-                
-                p,
-                a{
-                    padding: 0.7em;
-                    font-size: var(--simple_text_size);
-                }
-     
-                p{
-                    color: var(--const_font_white_color)
-                }
-
-                a{
-                    color: var(--const_font_gold_color);
-                }
-                
-            }
-
+        a{
+            color: var(--const_font_gold_color);
         }
     }
 }

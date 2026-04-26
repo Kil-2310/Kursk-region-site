@@ -8,12 +8,8 @@
     @include markup($justify-content: space-between);
     padding-inline: 2vw;
 
-    p{
-        font-size: var(--smolle_text_size);
-    }
-
     .changing_font{
-        width: clamp(10vh, 20vh + 10vw, 25%);
+        width: clamp(40px, 20vh + 10vw, 25%);
 
         display: grid;
         grid-template-columns: 1fr 2fr 1fr;
@@ -36,7 +32,10 @@
 
         button{
             background-color: transparent;
-            border: none;
+
+            &:hover{
+                transform: translateY(0);
+            }
         }
     }
 
@@ -48,7 +47,7 @@
 
         div{
             width: clamp(60px, 40%, 30%);
-            height: 48%;
+            height: 40px;
             
             position: relative;
             background-color: #323232;

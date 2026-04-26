@@ -5,13 +5,15 @@ import dataAsideBlock from './dataAsideBlock';
 const AsideBlock = ({ asideTitle }) => {
     const AsideData = dataAsideBlock[asideTitle];
 
-    if (!AsideData) {
-        return <p>Данные не найдены</p>;
-    }
-
     return (
         <aside className={`${styles.aside_block}`}>
-            <Image src={AsideData.image} alt={AsideData.alt} width={1000} height={500} />
+            <Image
+                src={AsideData.image}
+                alt={AsideData.alt}
+                width={1000}
+                height={500}
+                className="html_image"
+            />
 
             <div>
                 <p>{AsideData.description}</p>

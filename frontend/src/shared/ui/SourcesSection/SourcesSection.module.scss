@@ -1,7 +1,11 @@
-@use '@/app/styles/mixins' as *;
-
 .sources{
     padding: 3vw;
+
+    p,
+    a,
+    h1{
+        color: var(--changeable_font_color);
+    }
 
     p{
         font-size: var(--simple_text_size);
@@ -11,14 +15,11 @@
     }
 
     ul{
-        margin-top: 4ch;
-        
-        @include markup();
-        flex-direction: column;
-
         li{
             margin: 5px 0;
             font-size: var(--smalle_text_size);
+            
+            text-align: center;
             
             a{
                 text-decoration: underline;

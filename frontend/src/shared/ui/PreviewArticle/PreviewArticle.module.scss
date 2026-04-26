@@ -5,32 +5,22 @@
 
     @include markup($justify-content: flex-start);
     position: relative;
-    
-    img{
-        position: absolute;
-        
-        width: 100%;
-        height: 100%;
 
-        object-fit: cover;
+    img{
+        @include img_positon();
+        filter: brightness(0.65);
     }
 
     h1{
-        position: relative;
-        font-size: var(--h1_font_size);
+        z-index: 2;
         color: var(--const_font_white_color);
 
-        padding-left: 1em;
+        padding: 0.8em;
     }
 }
 
 @media (max-width: 1024px){
     .preview_article{
         justify-content: center !important;
-
-        h1{
-            padding-inline: 0.3em;
-            text-align: center;
-        }
     }
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import UserData from '@/entities/ui/UserData';
+import UserForm from '@/entities/ui/UserForm';
 
 export const metadata: Metadata = {
     title: 'Отзывы',
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function ReviewsPage() {
     return (
         <>
-            <UserData />
+            <UserForm />
         </>
     );
 }

@@ -1,0 +1,48 @@
+@use '@/app/styles/mixins' as *;
+
+.form {
+    width: clamp(230px, 58vh + 30vw, 95vw);
+    margin: auto;
+
+    margin-top: 5vh;
+    padding-top: 5vh;
+
+    border-radius: 10px;
+    border: 1px solid var(--changeable_font_color);
+
+    & > div {
+        @include markup();
+        flex-direction: column;
+
+        margin-block: 50px;
+
+        &:last-child {
+            flex-direction: row;
+            justify-content: space-around;
+        }
+    }
+
+    h1,
+    label,
+    textarea,
+    ::placeholder{
+        color: var(--changeable_font_color);
+    }
+
+    textarea,
+    input,
+    label {
+        width: 70%;
+        font-size: var(--simple_text_size);
+        padding: 0.4em;
+    }
+
+    textarea,
+    input{
+        background-color: var(--bg_elements);
+    }
+
+    textarea {
+        resize: vertical;
+    }
+}

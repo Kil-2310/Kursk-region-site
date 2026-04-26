@@ -10,12 +10,14 @@ const ImageSimpleCards = ({ simpleCardsTitle }) => {
     const visibleArea = [];
     const hiddenArea = [];
 
-    data.map((item, index) => {
+    data.slice(1).forEach((item, index) => {
         const element = (
-            <aside key={index} className={`${styles.container__image_simple_card}`}>
-                <Image src={item[0]} width={200} height={100} alt="Декоративная картинка" />
-                <strong>{item[1]}</strong>
-            </aside>
+            <div key={index} className={styles.simple_card}>
+                <Image src={item.image} width={200} height={100} alt={item.alt} title={item.alt} />
+                <a target="_blanck" href={item.href}>
+                    {item.name}
+                </a>
+            </div>
         );
 
         if (index <= 2) {
@@ -26,13 +28,17 @@ const ImageSimpleCards = ({ simpleCardsTitle }) => {
     });
 
     return (
-        <section className={styles.container}>
-            <div className={styles.container__cards}>{visibleArea}</div>
+        <section>
+            {data[0] && data[0] !== '' && <p className="simple_text">{data[0]}</p>}
+
+            <div className={styles.cards}>{visibleArea}</div>
 
             {hiddenArea.length > 0 && (
                 <details>
-                    <summary>{hiddenArea.length} материалов</summary>
-                    <div className={styles.container__cards}>{hiddenArea}</div>
+                    <summary className={styles.summary}>
+                        Показать еще {hiddenArea.length} материала
+                    </summary>
+                    <div className={styles.cards}>{hiddenArea}</div>
                 </details>
             )}
         </section>

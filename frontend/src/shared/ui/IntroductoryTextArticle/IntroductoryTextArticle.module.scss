@@ -1,11 +1,22 @@
 .introductory_text_article{
-    margin-block: 10vh;
-    padding-inline: 2em;
+    padding: clamp(10px, 10vw, 10vh);
 
-    color: var(--changeable_font_color);
+    position: relative;
+    border-top: 1px solid white;
 
     p{
         font-size: var(--h4_font_size);
-        text-align: center;
+        color: var(--changeable_font_color);
+    }
+
+    hr{
+        background-color: var(--const_font_blue_color);
+        width: 30vw;
+        height: 2px;
+        border: none;
+
+        position: absolute;
+        bottom: 0;
+        left: 0;
     }
 }

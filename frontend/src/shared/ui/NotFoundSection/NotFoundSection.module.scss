@@ -1,31 +1,29 @@
 @use '@/app/styles/mixins' as *;
 
 .not_foubd{
-    width: 100vw;
-    height: 76vh;
+    position: absolute;
+    inset: 17vh 0 0 0;
 
-    background-image: linear-gradient(
-        rgba(0, 0, 0, 0.7), 
-        rgba(0, 0, 0, 0.7)
-    ), url('/images/global/entrance_region.jpg');
+    @include blackout(); 
+
+    background-image: url('/images/global/entrance_region.jpg');
     background-position: center;
     background-size: cover;
-
+    
     @include markup();
     flex-direction: column;
+    row-gap: 1em;
 
     h1,
     p{
-        color: var(--const_font_white_color);
-        padding: 0.5em;
-    }
+        z-index: 2;
 
-    h1{
-        font-size: var(--h1_font_size);
+        color: var(--const_font_white_color);
+        padding-inline: 1em;
     }
 
     p{
         font-size: var(--h3_font_size);
-        text-align: left;
+        text-align: center;
     }
 }

@@ -1,52 +1,37 @@
 @use '@/app/styles/mixins' as *;
 
-.articles_about_region{
+.article{
+    height: clamp(35vh, 50vw, 70vh);
 
-    .image{
-        height: clamp(35vh, 50vw, 70vh);
+    position: relative;
+    top: 0;
+    right: 0;
 
-        position: relative;
-        top: 0;
-        right: 0;
+    @include markup($justify-content: start);
 
-        @include markup($justify-content: start);
-
-        @include blackout($value:0.4, $z-index: 2);
-
-        img{
-            position: absolute;
-            z-index: 1;
-            object-fit: cover;
-
-            width: 100%;
-            height: 100%;
-        }
-
-        a{
-            position: absolute;
-            z-index: 3;
-
-            font-weight: bold;
-            text-decoration: underline;
-
-            font-size: var(--h3_font_size);
-            margin-left: 1.5em;
-            color: var(--const_font_white_color);
-        }
+    img{
+        @include img_positon($filter: 0.55);
     }
 
-    .links{
-        margin-block: 5vh;
+    a{
+        z-index: 2;
 
-        li{
-            text-align: left;
+        font-weight: bold;
+        font-size: var(--h3_font_size);
+        margin-left: 1.5em;
+        color: var(--const_font_white_color);
+    }
+}
+
+.links{
+    margin-block: 20px;
+
+    li{
+        color: var(--changeable_font_color);
+        padding: 0.35em;
+
+        a{
             color: var(--changeable_font_color);
-            padding: 0.35em;
-
-            a{
-                text-decoration: underline;
-                color: var(--changeable_font_color);
-            }
         }
     }
 }

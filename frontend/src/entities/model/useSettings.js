@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import useSettingsLocalStorage from './useSettingsLocalStorage';
+import useItemsLocalStorage from './useLocalStorage';
 
 const useSettings = () => {
-    const { saveSettings, savedSettings } = useSettingsLocalStorage();
+    const { saveItems, savedItems } = useItemsLocalStorage('Items');
 
-    const [useUserTheme, setUserTheme] = useState(savedSettings?.theme ?? 'light');
-    const [useFontSize, setFontSize] = useState(savedSettings?.fontSize ?? 16);
+    const [useUserTheme, setUserTheme] = useState(savedItems?.theme ?? 'light');
+    const [useFontSize, setFontSize] = useState(savedItems?.fontSize ?? 16);
 
     useEffect(() => {
         document.documentElement.style.fontSize = useFontSize + 'px';
 
-        saveSettings({
+        saveItems({
             fontSize: useFontSize,
             theme: useUserTheme,
         });

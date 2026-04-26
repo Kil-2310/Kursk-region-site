@@ -1,20 +1,17 @@
-.container{
-    &__table{
-        margin-inline: 2vw;
+.table{
+    margin-inline: 2vw;
 
+    th, td {
         border: 2px solid black;
-    
-        th, td {
-            border: 2px solid black;
-            padding: 0.7em;
-            font-size: var(--smalle_text_size);
-        }
+        padding: 0.7em;
+        font-size: var(--smalle_text_size);
+        color: var(--changeable_font_color);
+    }
 
-        td:first-child{
-            text-align: center;
-    
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-        }
+    td:first-child{
+        text-align: center;
+
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
     }
 }

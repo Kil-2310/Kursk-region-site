@@ -1,0 +1,65 @@
+@use '@/app/styles/mixins' as *;
+
+.map{
+    height: clamp(55vh, 20vh, 70vh);
+    position: relative;
+
+    .point{
+        background: #ff4444;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid white;
+        cursor: pointer;
+
+        outline: 1px solid black;
+    }
+
+    .info{
+        position: absolute;
+        z-index: 2;
+        width: clamp(30vw, 50vh, 96vw);
+        height: 90%;
+
+        inset: min(2vw, 2vh);
+        border: 1px solid black;
+
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 2fr repeat(2, 1fr);
+
+        background: white;
+        border-radius: 6px;
+
+        & > div{
+            @include markup();
+            position: relative;
+
+            img{
+                @include img_positon($width: 80%, $filter: 0.9);
+                border-radius: 10px;
+            }
+        }
+
+        h3,
+        p {
+            @include markup();
+        }
+        
+        h3{
+            font-size: var(--smalle_text_size);
+        }
+
+        p{
+            text-align: center;
+            font-size: 17px;
+
+            padding: 0.4em;
+        }
+
+        button{
+            max-width: 50%;
+            margin: auto;
+        }
+    }
+}

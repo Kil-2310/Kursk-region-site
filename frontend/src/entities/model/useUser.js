@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+
 import { userAPI } from '@/shared/api';
 
 const useUser = () => {

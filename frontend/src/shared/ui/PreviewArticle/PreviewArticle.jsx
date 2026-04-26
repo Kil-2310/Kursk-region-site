@@ -3,17 +3,18 @@ import dataPreviewArticle from './dataPreviewArticle';
 import Image from 'next/image';
 
 const PreviewArticle = ({ previewTitle }) => {
-    const previewData = dataPreviewArticle[previewTitle];
+    const data = dataPreviewArticle[previewTitle];
 
     return (
-        <section className={`${styles.preview_article}`}>
+        <section className={styles.preview_article}>
             <Image
-                src={previewData.image}
-                alt={`Превью ${previewData.title}`}
+                src={data.image}
                 width={900}
                 height={600}
+                alt={data.alt}
+                className="html_image"
             />
-            <h1>{previewData.title}</h1>
+            <h1>{data.title}</h1>
         </section>
     );
 };

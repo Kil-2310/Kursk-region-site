@@ -14,10 +14,6 @@ body {
     overflow-x: hidden;
 }
 
-a {
-    text-decoration: none;
-}
-
 p{
     margin: 0;
 }
@@ -52,34 +48,45 @@ h2{
     @include markup();
 }
 
-hr{
-    background-color: var(--const_font_blue_color);
-    width: 30vw;
-    height: 2px;
+h3{
+    font-size: (var(--h3_font_size));
 }
 
 .simple_text{
     font-size: var(--simple_text_size);
+    color: var(--changeable_font_color);
     text-indent: 1.2em;
     padding: 0.6em;
+    margin-block: 3vh;
 }
 
-.smalle_text{
-    font-size: var(--smolle_text_size);
-    text-align: left;
-    padding: 0.4em;
-}
-
-// h2,
 .header_scroll_view{
     padding-top: 16vh;
     margin-bottom: -16vh;
 }
 
+button{
+    color: var(--const_font_white_color);
+    font-size: var(--smalle_text_size);
+    border: none;
+    
+    border-radius: 5px;
+
+    &:hover{
+        transform: translate(10px, -5px);
+    }
+}
+
 .blue_button {
     background-color: var(--const_font_blue_color);
+    padding: 0.5em 0.4em;
 }
 
 .red_button {
     background-color: var(--const_font_red_color);
+    padding: 0.5em 0.4em;
+}
+
+.chart_container{
+    @include markup();
 }

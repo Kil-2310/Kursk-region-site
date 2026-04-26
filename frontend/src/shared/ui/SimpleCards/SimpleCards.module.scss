@@ -1,47 +1,44 @@
 @use '@/app/styles/mixins' as *;
 
-.container{
-    @include markup();
-    row-gap: 7vh;
-    flex-direction: column;
+.simple_card{
+    margin: 5vh auto;
+    width: 90%;
 
-    .simple_card{
-        margin: auto;
-        height: 35vh;
-        width: 90%;
+    @include markup();
+
+    background-color: var(--bg_elements);
+    border-radius: 10px;
+    border: 1px solid black;
+
+    height: clamp(25vh, 12rem, 30vh);
+
+    h3,
+    li{
+        padding: 0.6em;
+        text-align: center;
+    }
+
+    h3{
+        width: 25%;
+
+        font-size: var(--smalle_text_size);
+
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
 
         @include markup();
+    }
 
-        background-color: var(--bg_simple_cards);
-        border-radius: 10px;
+    ul{
+        width: 75%;
+        height: 100%;
+        border-left: 2px solid var(--const_font_blue_color);
 
-        strong,
-        li{
-            padding: 0.6em;
-            font-size: var(--smalle_text_size);
-            text-align: center;
-        }
+        @include markup();
+        flex-direction: column;
 
-        strong{
-            width: clamp(10vw, 20vw, 40vw);
-            height: 100%;
-
-            border-left: 2px solid var(--const_font_blue_color);
-
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-
-            @include markup();
-        }
-
-        ul{
-            width: clamp(60vw, 20vw, 75vw);
-            height: 100%;
-
-            text-decoration: underline;
-
-            @include markup();
-            flex-direction: column;
+        a{
+            font-size: var(--simple_text_size);
         }
     }
 }

@@ -13,20 +13,21 @@ const Slider = ({ SliderTitle }) => {
         setCurrentIndex((prevIndex) => {
             if (action === 'push') {
                 return (prevIndex + 1) % data.length;
-            } else {
-                return (prevIndex - 1 + data.length) % data.length;
             }
+
+            return (prevIndex - 1 + data.length) % data.length;
         });
     };
 
     return (
-        <section className={`${styles.slider}`}>
-            <div>
+        <section>
+            <div className={styles.slider}>
                 <Image
                     src={data[currentIndex]}
                     width={500}
                     height={300}
                     alt="Изображение со слайдера"
+                    className="html_image"
                 />
 
                 <button onClick={() => updateImage('down')}>←</button>

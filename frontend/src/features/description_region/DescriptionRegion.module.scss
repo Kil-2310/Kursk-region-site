@@ -30,11 +30,12 @@
         text-align: center;
     }
 
-    p{
+    & > div{
         font-size: var(--simple_text_size);
         padding: 0.5em 5vw;
         text-align: center;
+        @include markup();
 
-        min-height: 30vh;
+        min-height: 20vh;
     }
 }

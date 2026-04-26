@@ -1,7 +1,8 @@
+@use '@/app/styles/mixins' as *;
 
 .theme_light{
     --changeable_font_color: rgb(17, 17, 17);
-    --bg_simple_cards: #D9D9D9;
+    --bg_elements: #ececec;
 
     body{
         background-color: white;
@@ -9,15 +10,29 @@
 }
 
 .theme_dark{
-    --changeable_font_color: rgb(246, 246, 246);
+    --changeable_font_color: rgb(197, 197, 197);
+    --bg_elements: #929292;
+
+    .html_image {
+        filter: brightness(0.3) !important;
+    }
 
     body{
-        background-color: rgb(108, 108, 108);
+        background-color: rgb(30, 30, 30);
     }
 }
 
 .theme_simple{
     --changeable_font_color: rgb(17, 17, 17);
+    --bg_elements: #d3d3d3;
+
+    .css_image{
+        @include blackout($value: 0.8);
+    }
+
+    .html_image {
+        filter: brightness(0.3) !important;
+    }
 
     body{
         background-color: white;

@@ -7,7 +7,7 @@ const userAPI = {
             method: 'POST',
             headers,
             body: JSON.stringify(data),
-        }).then((response) => response.json());
+        });
     },
 };
 

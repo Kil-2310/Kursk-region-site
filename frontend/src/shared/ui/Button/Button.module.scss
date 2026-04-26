@@ -1,15 +1,6 @@
 .button {
-    min-width: 15vw;
-    color: var(--const_font_white_color);
-    font-size: var(--smalle_text_size);
+    min-width: 20vw;
 
-    border: none;
     font-weight: bold;
     border-radius: 6px;
-    
-    padding: 0.7em;
-
-    &:hover{
-        transform: translate(10px, -5px);
-    }
 }

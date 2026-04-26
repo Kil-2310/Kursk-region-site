@@ -1,12 +1,13 @@
+import { memo } from 'react';
 import dataTable from './dataTable';
 import styles from './Table.module.scss';
 
-const Table = ({ TitleTable }) => {
-    const data = dataTable[TitleTable];
+const Table = ({ tableTitle }) => {
+    const data = dataTable[tableTitle];
 
     return (
-        <section className={`${styles.container}`}>
-            <table className={`${styles.container__table}`}>
+        <section>
+            <table className={styles.table}>
                 <thead>
                     <tr>
                         {data['headers'].map((head, index) => (
@@ -28,4 +29,4 @@ const Table = ({ TitleTable }) => {
     );
 };
 
-export default Table;
+export default memo(Table);

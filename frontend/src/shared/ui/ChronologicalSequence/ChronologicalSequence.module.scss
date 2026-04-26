@@ -1,7 +1,6 @@
 @use '@/app/styles/mixins' as *;
 
 .chronological_sequence {
-    width: 100vw;
     position: relative;
     
     &::before {
@@ -19,50 +18,45 @@
     aside{
         position: relative;
 
-        width: 100%;
-        @include markup();
-        flex-direction: column;
-
-        strong{
-            min-width: 15vw;
+        .title{
             @include markup();
             margin-block: 3vh;
-    
-            background-color: var(--const_font_blue_color);
-            font-size: var(--simple_text_size);
-            color: var(--const_font_white_color);
-            padding: 0.5em;
-            border-radius: 7px;
+            
+            strong{
+                background-color: var(--const_font_blue_color);
+                font-size: var(--simple_text_size);
+                color: var(--const_font_white_color);
+                padding: 0.5em;
+                border-radius: 7px;
+                text-align: center;
+                min-width: 15vw;
+            }
         }
 
-        .chronological_sequence__flex_block{
-            width: 100%;
+        .flex_block{
             @include markup($align-items: stretch);
             
-            p,
-            img{
-                padding: 0.8em;
+            div{
+                width: 50%;
+
+                position: relative;
+                @include markup();
+
+                img {
+                    border-radius: 10px;
+                    @include img_positon($width: 95%, $filter: 0.8);
+                }
             }
     
             p{
                 width: 50%;
+                padding: 0.8em;
 
-                text-align: center;
                 @include markup();
     
                 color: var(--const_font_black_color);
                 font-size: var(--simple_text_size);
-            }
-
-            .darck_bg,
-            img{
-                width: 50%;
-                border-radius: 25px;
-            }
-    
-            img{
-                object-fit: cover;
-                filter: brightness(0.8);
+                color: var(--changeable_font_color);
             }
         }
     }
@@ -71,31 +65,32 @@
 @media (max-width: 1024px) {
     .chronological_sequence {
         aside {
-            .chronological_sequence__flex_block {
+            .flex_block {
+                min-height: 30vh;
                 position: relative;
-                
+                @include markup();
+         
                 p {
-                    position: relative;
+                    text-align: center;
                     z-index: 2;
                     width: 100%;
-                    height: 100%;
                     color: var(--const_font_white_color);
                 }
 
-                img,
-                .darck_bg{
+                & > div{
                     position: absolute;
                     width: 100%;
                     height: 100%;
+
+                    img {
+                        border-radius: 10px;
+                        @include img_positon($width: 100%, $filter: 0.4);
+                    }
                 }
 
                 .darck_bg{
-                    background-color: rgb(68, 68, 68);
-                }
-                
-                img {
-                    padding: 0;
-                    filter: brightness(0.5);
+                    background-color: rgb(65, 65, 65);
+                    border-radius: 10px;
                 }
             }
         }
