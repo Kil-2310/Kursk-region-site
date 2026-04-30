@@ -6,14 +6,14 @@ from .config import (
     SMTP_PASSWORD,
     SMTP_HOST,
     SMTP_PORT,
-    FRONTEND_URL,
-    IS_PROD,
-    PROFILER_USER,
-    PROFILER_PASSWORD,
+    USER_USERNAME,
+    USER_PASSWORD,
     REDIS_BROKER,
     REDIS_BACKEND,
     CSRF_TOKEN,
     REDIS_CLIENT,
     REDIS_SESSIONS,
+    IS_TESTING,
 )
 from .logger_config import logger
+from  .uvicorn_log_config import CUSTOM_LOGGING_CONFIG

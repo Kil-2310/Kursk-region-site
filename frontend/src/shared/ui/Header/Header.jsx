@@ -28,13 +28,13 @@ const Header = () => {
                         <a
                             href="https://adm2.rkursk.ru/"
                             target="_blank"
-                            aria-label="На официальный сайт"
+                            title="На официальный сайт"
                         >
                             <Image
                                 src="/images/global/coat_arms_kursk_region.png"
                                 alt="Герб Курской области"
                                 width={50}
-                                height={60}
+                                height={50}
                                 priority
                             />
                         </a>
@@ -52,7 +52,7 @@ const Header = () => {
                             onChange={ChangeLocation}
                             name="culture"
                             defaultValue=""
-                            aria-label="Раздел культуры"
+                            title="Раздел культуры"
                         >
                             <option value="">Культура</option>
                             <option value="/culture">Культура Курской области</option>
@@ -72,7 +72,7 @@ const Header = () => {
                             onChange={ChangeLocation}
                             name="history"
                             defaultValue=""
-                            aria-label="Раздел истории"
+                            title="Раздел истории"
                         >
                             <option value="">История</option>
                             <option value="/history">История Курской области</option>
@@ -98,7 +98,7 @@ const Header = () => {
                             onChange={ChangeLocation}
                             name="ecology"
                             defaultValue=""
-                            aria-label="Раздел экологии"
+                            title="Раздел экологии"
                         >
                             <option value="">Экология</option>
                             <option value="/ecology">Экология Курской области</option>
@@ -121,7 +121,7 @@ const Header = () => {
                             onChange={ChangeLocation}
                             name="economy"
                             defaultValue=""
-                            aria-label="Раздел экономики"
+                            title="Раздел экономики"
                         >
                             <option value="">Экономика</option>
                             <option value="/economy">Экономика Курской области</option>
@@ -142,7 +142,7 @@ const Header = () => {
                             onChange={ChangeLocation}
                             name="tourism"
                             defaultValue=""
-                            aria-label="Раздел туризма"
+                            title="Раздел туризма"
                         >
                             <option value="">Туризм</option>
                             <option value="/tourism">Туризм Курской области</option>
@@ -166,7 +166,7 @@ const Header = () => {
                         <select
                             name="cities"
                             defaultValue=""
-                            aria-label="Города"
+                            title="Города"
                             onChange={ChangeLocation}
                         >
                             <option value="">Города</option>
@@ -184,18 +184,18 @@ const Header = () => {
                     href="https://adm2.rkursk.ru/"
                     target="_blank"
                     className={styles.logo}
-                    aria-label="На официальный сайт"
+                    title="На официальный сайт"
                 >
                     <Image
                         src="/images/global/coat_arms_kursk_region.png"
                         alt="Герб Курской области"
                         width={50}
-                        height={48}
+                        height={50}
                         priority
                     />
                 </a>
 
-                <div className={styles.ui} aria-label="Открыть меню" onClick={closeBurgerMenu}>
+                <div className={styles.ui} title="Открыть меню" onClick={closeBurgerMenu}>
                     <div></div>
                     <div></div>
                     <div></div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import styles from './UserForm.module.scss';
 import Button from '@/shared/ui/Button';
@@ -8,7 +8,7 @@ import useUser from '@/entities/model/useUser';
 
 const UserForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const { sendFeedback } = useUser();
+    const { sendFeedback, CSRFToken } = useUser();
 
     const submitForm = async (e) => {
         e.preventDefault();
@@ -20,6 +20,13 @@ const UserForm = () => {
 
         await sendFeedback(content, email, setIsSubmitting);
     };
+
+    useEffect(() => {
+        const initCSRF = async () => {
+            const token = await CSRFToken();
+        };
+        initCSRF();
+    }, []);
 
     return (
         <form onSubmit={submitForm} className={styles.form}>

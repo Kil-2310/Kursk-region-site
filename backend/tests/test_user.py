@@ -1,9 +1,9 @@
-from unittest.mock import patch
+# tests/test_user.py
+from unittest.mock import patch, MagicMock
+from app.config_data import SMTP_USER
 
-from backend.app.config_data import SMTP_USER
 
-
-async def test_send_feedback_success(client):
+def test_send_feedback_success(client):
     """Тест успешной отправки feedback с почтой от пользователя"""
 
     feedback_data = {
@@ -11,21 +11,34 @@ async def test_send_feedback_success(client):
         "content": "Test feedback message"
     }
 
-    with patch('backend.app.celery.celery_app.celery_send_email.delay') as mock_celery:
+    # Мокаем Celery задачу по правильному пути
+    # Если тест прошел с этим путем, значит он правильный
+    with patch('app.celery.celery_send_email.delay') as mock_celery:
+        mock_celery.return_value = MagicMock()
+
         response = client.post("/api/user/send_feedback", json=feedback_data)
 
-        assert response.status_code == 200
-        assert response.json() == {"result": 'true'}
+        print(f"Status: {response.status_code}")
+        print(f"Response: {response.text}")
+        print(f"Mock called: {mock_celery.called}")
+        print(f"Mock call count: {mock_celery.call_count}")
+        print(f"Mock call args: {mock_celery.call_args_list}")
 
-        # Проверка, что Celery вызвана 2 раза (для автора и пользователя)
-        assert mock_celery.call_count == 2
+        assert response.status_code == 200
+        assert response.json() == {"result": "true"}
+
+        # Проверяем, что Celery была вызвана 2 раза
+        assert mock_celery.call_count == 2, f"Expected 2 calls, got {mock_celery.call_count}"
+
+        # Проверяем аргументы вызовов
+        calls = mock_celery.call_args_list
 
         # Первый вызов (письмо пользователю)
-        first_call_args = mock_celery.call_args_list[0][1]
-        assert first_call_args['receiver'] == "user@example.com"
-        assert "Благодарность" in first_call_args['subject']
+        first_call_args = calls[0][1]  # keyword arguments
+        assert first_call_args.get('receiver') == feedback_data['email']
+        assert "Благодарность" in first_call_args.get('subject', '')
 
-        # Второй вызов (письмо автору)
-        second_call_args = mock_celery.call_args_list[1][1]
-        assert second_call_args['receiver'] == SMTP_USER
-        assert "Новый отзыв" in second_call_args['subject']
+        # Второй вызов (письмо администратору)
+        second_call_args = calls[1][1]
+        assert second_call_args.get('receiver') == SMTP_USER
+        assert "Новый отзыв" in second_call_args.get('subject', '')

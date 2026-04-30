@@ -8,6 +8,11 @@
     @include markup($justify-content: space-between);
     padding-inline: 2vw;
 
+    p,
+    button {
+        font-size: 20px;
+    }
+
     .changing_font{
         width: clamp(40px, 20vh + 10vw, 25%);
 
@@ -45,7 +50,7 @@
 
         @include markup($justify-content: space-between);
 
-        div{
+        label{
             width: clamp(60px, 40%, 30%);
             height: 40px;
             
@@ -76,6 +81,10 @@
                 &:checked ~ p{
                     left: 50%;
                 }
+            }
+
+            .hidden{
+                display: none;
             }
         }
     }

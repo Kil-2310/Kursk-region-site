@@ -1,11 +1,14 @@
 import pytest
+from fastapi import FastAPI
 import pytest_asyncio
 from fastapi.testclient import TestClient
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 
+app_ = FastAPI()
+
 # from backend.app.database import Base
-from backend.app.loader import create_app
+from app.loader import register_routes
 
 # TEST_DATABASE_URL = "sqlite+aiosqlite:///./test.db"
 #
@@ -30,7 +33,7 @@ from backend.app.loader import create_app
 @pytest.fixture(scope="function")
 def app():
     """Возвращает экземпляр приложения FastAPI"""
-    return create_app()
+    return register_routes(app_)
 
 
 @pytest.fixture(scope="function")
