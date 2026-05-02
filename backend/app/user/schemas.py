@@ -1,6 +1,10 @@
+from datetime import datetime
+
 from typing import Optional
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, validator, EmailStr
 from email_validator import validate_email, EmailNotValidError
+
+from ..base_schemas import ServerBoolAnswer
 
 
 class FeedbackCreate(BaseModel):
@@ -20,3 +24,36 @@ class FeedbackCreate(BaseModel):
                 raise ValueError(f"Неверный формат email: {str(e)}")
 
         return v
+
+
+class UserCreate(BaseModel):
+    """Модель создания нового пользователя"""
+
+    email: EmailStr
+    full_name: str = Field(..., min_length=1, max_length=100)
+
+
+class UserCreateResponse(ServerBoolAnswer):
+    """Ответ после создания пользователя"""
+
+    user_id: int
+
+
+class UserLoginJWT(ServerBoolAnswer):
+    jwt_token: str
+
+
+class UserEmail(BaseModel):
+    email: EmailStr
+
+
+class TemporaryCode(BaseModel):
+    code: str
+
+
+class UserProfile(ServerBoolAnswer):
+    user_id: int
+    full_name: str
+    email: EmailStr
+    created_at: datetime
+    verified: bool

@@ -29,14 +29,14 @@ class ProfilerAuthMiddleware(BaseHTTPMiddleware):
                     return Response(
                         "Unauthorized",
                         status_code=401,
-                        headers={"WWW-Authenticate": "Basic realm='Profiler'"}
+                        headers={"WWW-Authenticate": "Basic realm='Profiler'"},
                     )
 
             except Exception:
                 return Response(
                     "Unauthorized",
                     status_code=401,
-                    headers={"WWW-Authenticate": "Basic realm='Profiler'"}
+                    headers={"WWW-Authenticate": "Basic realm='Profiler'"},
                 )
 
         response = await call_next(request)

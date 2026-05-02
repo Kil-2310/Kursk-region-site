@@ -2,8 +2,8 @@ FROM python:3.12-slim-bookworm
 
 WORKDIR /backend
 
-COPY ./prod_requirements.txt .
-RUN pip install --no-cache-dir -r prod_requirements.txt
+COPY ./requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./.env* ./
 COPY ./main.py ./main.py

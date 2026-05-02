@@ -1,7 +1,6 @@
 import uvicorn
 
 from app.loader import create_app
-
 from app.config_data import CUSTOM_LOGGING_CONFIG
 
 app = create_app()

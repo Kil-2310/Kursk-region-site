@@ -5,8 +5,8 @@ import base64
 
 from app.config_data import USER_USERNAME, USER_PASSWORD
 
-
 security = HTTPBasic()
+
 
 def setup_open_api(app: FastAPI):
     class OpenApiProtectionMiddleware(BaseHTTPMiddleware):
@@ -19,7 +19,7 @@ def setup_open_api(app: FastAPI):
                     return Response(
                         "Unauthorized",
                         status_code=401,
-                        headers={"WWW-Authenticate": "Basic"}
+                        headers={"WWW-Authenticate": "Basic"},
                     )
 
                 try:
