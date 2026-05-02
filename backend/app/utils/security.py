@@ -1,19 +1,21 @@
 import string
 import secrets
+import hashlib
 
-from passlib.context import CryptContext
+from ..config_data import SECRET_SALT_KEY
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-def hash_password(password: str) -> str:
-    """Хэширование пароля bcrypt"""
-    return pwd_context.hash(password)
+def generate_numeric_code() -> str:
+    """Генерация числового кода (4 символа)"""
+    return "".join(secrets.choice(string.digits) for _ in range(4))
 
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Проверка пароля через bcrypt"""
-    return pwd_context.verify(plain_password, hashed_password)
 
-def generate_numeric_code(length=6):
-    """Генерация числового кода"""
-    numbers = string.digits
-    return ''.join(secrets.choice(numbers) for _ in range(length))
+def hash_code(code: str) -> str:
+    """Хэширование кода с помощью SHA256 и соли"""
+    salt = SECRET_SALT_KEY
+    return hashlib.sha256(f"{code}{salt}".encode()).hexdigest()
+
+
+def verify_code(plain_code: str, hashed_code: str) -> bool:
+    """Проверка кода"""
+    return hash_code(plain_code) == hashed_code

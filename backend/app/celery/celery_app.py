@@ -13,6 +13,7 @@ celery = Celery(
     backend=REDIS_BACKEND,
 )
 
+
 @celery.task
 def celery_send_email(
     receiver: str, subject: str, content: str, file_name_message: str

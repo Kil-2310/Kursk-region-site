@@ -5,6 +5,7 @@ from fastapi import FastAPI
 
 HOST = os.getenv("HOST")
 
+
 def setup_cors_protect(app: FastAPI):
     app.add_middleware(
         CORSMiddleware,

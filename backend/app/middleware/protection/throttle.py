@@ -31,15 +31,11 @@ def setup_throttle(app: FastAPI):
 
         if not limiter.allow_request(client_ip):
             raise HTTPException(
-                status_code=429,
-                detail="Too many requests. Please try again later."
+                status_code=429, detail="Too many requests. Please try again later."
             )
 
         response = await call_next(request)
         response.headers["X-RateLimit-Limit"] = str(limiter.capacity)
         return response
 
-    app.add_middleware(
-        BaseHTTPMiddleware,
-        dispatch=rate_limit_middleware
-    )
+    app.add_middleware(BaseHTTPMiddleware, dispatch=rate_limit_middleware)

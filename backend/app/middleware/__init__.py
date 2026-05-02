@@ -2,8 +2,6 @@ from .protection import (
     setup_throttle,
     setup_cors_protect,
     setup_csrf_protect,
-    setup_open_api
+    setup_open_api,
 )
-from .analytics import (
-    setup_profiler
-)
+from .analytics import setup_profiler
