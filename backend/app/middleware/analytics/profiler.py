@@ -1,8 +1,9 @@
 import base64
+
+from app.config_data import USER_PASSWORD, USER_USERNAME
 from fastapi import FastAPI, Request, Response
-from starlette.middleware.base import BaseHTTPMiddleware
 from fastapi_profiler import Profiler
-from app.config_data import USER_USERNAME, USER_PASSWORD
+from starlette.middleware.base import BaseHTTPMiddleware
 
 
 class ProfilerAuthMiddleware(BaseHTTPMiddleware):

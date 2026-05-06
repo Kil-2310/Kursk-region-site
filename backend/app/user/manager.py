@@ -1,11 +1,11 @@
 from datetime import datetime
-from sqlalchemy.orm import selectinload
 
-from .model import User
 from fastapi import HTTPException
 from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 
 from ..utils.security import *
+from .model import User
 
 
 class UserManager:
@@ -59,9 +59,6 @@ class UserManager:
         if user_obj is None:
             raise HTTPException(status_code=404, detail="User not found")
 
-        if user_obj.verified:
-            raise HTTPException(status_code=404, detail="User already verified")
-
         if datetime.now() > user_obj.temporary_code.expires_at or email is None:
             raise HTTPException(status_code=404, detail="Temporary code expired")
 
@@ -69,8 +66,6 @@ class UserManager:
             temporary_code, user_obj.temporary_code.temporary_code_value
         ):
             raise HTTPException(status_code=404, detail="Invalid temporary code")
-
-        user_obj.verified = True
 
     @classmethod
     async def code_confirmation_login(cls, session, temporary_code, email):
@@ -86,9 +81,6 @@ class UserManager:
         if user_obj is None:
             raise HTTPException(status_code=404, detail="User not found")
 
-        if not user_obj.verified:
-            raise HTTPException(status_code=404, detail="User dont verified")
-
         if datetime.now() > user_obj.temporary_code.expires_at or email is None:
             raise HTTPException(status_code=404, detail="Temporary code expired")
 
@@ -100,9 +92,9 @@ class UserManager:
         return user_obj
 
     @classmethod
-    async def get_by_id(cls, session, id):
+    async def get_by_id(cls, session, user_id: int):
 
-        result = await session.execute(select(User).where(User.user_id == id))
+        result = await session.execute(select(User).where(User.user_id == user_id))
 
         user_obj = result.scalar_one_or_none()
 

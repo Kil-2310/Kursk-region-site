@@ -1,13 +1,13 @@
-from fastapi import Depends, FastAPI, Request, Response
-from fastapi_csrf_protect import CsrfProtect
+from app.middleware import limiter
+from fastapi import Depends, FastAPI, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from ..database import get_session
-from .schemas import *
 from ..base_schemas import ServerBoolAnswer
 from ..config_data import logger
+from ..database import get_session
 from ..utils.jwt_token import jwt_token
 from .manager import CommentManager
+from .schemas import *
 
 
 def register_comment_routes(app: FastAPI):
@@ -19,21 +19,17 @@ def register_comment_routes(app: FastAPI):
         summary="Создание нового комментария",
         response_model=CreateCommentResponse,
     )
+    @limiter.limit("2/minute")
     async def route_comment_create(
         comment: CreateCommentRequest,
         request: Request,
-        csrf_protect: CsrfProtect = Depends(),
         session: AsyncSession = Depends(get_session),
     ) -> CreateCommentResponse:
         """Создание нового комментария"""
         logger.debug("Создание нового комментария")
 
-        # Поверка csrf
-        await csrf_protect.validate_csrf(request)
-
         # Получение и проверка токена
-        token = request.cookies.get("jwt_token")
-        user_id, role = jwt_token.read(token)
+        user_id, role = jwt_token.read(request.cookies.get("jwt_token"))
 
         # Данные пользователя
         post_content = comment.content
@@ -54,27 +50,23 @@ def register_comment_routes(app: FastAPI):
         summary="Удаление комментария по id",
         response_model=ServerBoolAnswer,
     )
+    @limiter.limit("2/minute")
     async def route_comment_delete(
         request: Request,
-        csrf_protect: CsrfProtect = Depends(),
         session: AsyncSession = Depends(get_session),
     ) -> ServerBoolAnswer:
         """Удаление комментария по id"""
         logger.debug("Удаление комментария по id")
 
-        # Поверка csrf
-        await csrf_protect.validate_csrf(request)
-
         # Получение и проверка токена
-        token = request.cookies.get("jwt_token")
-        user_id, role = jwt_token.read(token)
+        user_id, role = jwt_token.read(request.cookies.get("jwt_token"))
 
         # Бизнес-логика
         comment_obj = await CommentManager.check_availability_by_user_id(
             session, user_id
         )
         CommentManager.belonging_user(user_id, comment_obj)
-        await CommentManager.delete(session, user_id)
+        await CommentManager.delete(session, comment_obj)
 
         # Response
         return ServerBoolAnswer()

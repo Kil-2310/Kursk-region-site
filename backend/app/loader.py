@@ -1,37 +1,19 @@
+from app.utils.cache_sessions import cache
 from fastapi import FastAPI
-
-from .config_data import (
-    custom_openapi,
-)
-
-from .user.routes import register_user_routes
-from .comment.routes import register_comment_routes
-from .media.routes import register_media_routes
-
-from .user.model import User
 from sqlalchemy import select
 
-from .middleware import (
-    setup_throttle,
-    setup_cors_protect,
-    setup_csrf_protect,
-    setup_profiler,
-    setup_open_api,
-)
-from .database import (
-    engine,
-    async_session,
-    # init_cache,
-    # close_cache
-)
 from .base import Base
+from .comment.routes import register_comment_routes
+from .database import async_session, engine  # init_cache,; close_cache
+from .media.routes import register_media_routes
+from .middleware import setup_cors_protect, setup_open_api, setup_profiler
+from .user.model import User
+from .user.routes import register_user_routes
 
 
 def register_middleware(app: FastAPI):
     # Настройки middleware
 
-    setup_throttle(app)
-    setup_csrf_protect(app)
     setup_cors_protect(app)
     setup_profiler(app)
     setup_open_api(app)
@@ -52,12 +34,13 @@ def create_app() -> FastAPI:
 
     register_middleware(app)
     register_routes(app)
-    custom_openapi(app)
 
     @app.on_event("startup")
     async def startup():
         async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
+
+            await cache.connect()
 
         async with async_session() as session:
 
@@ -66,18 +49,17 @@ def create_app() -> FastAPI:
 
             if not object_users:
                 users_data = [
-                    User(full_name="Bob", email="kil-2310@yandex.ru", verified=True),
+                    User(full_name="Bob", email="kil-2310@yandex.ru"),
                 ]
 
                 session.add_all(users_data)
                 await session.flush()
                 await session.commit()
 
-        # await init_cache()
-
     @app.on_event("shutdown")
     async def shutdown():
         await engine.dispose()
-        # await close_cache()
+
+        await cache.disconnect()
 
     return app

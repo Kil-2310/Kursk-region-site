@@ -1,41 +1,25 @@
-from fastapi import FastAPI, Request, HTTPException
-from fastapi_advanced_rate_limiter import SlidingWindowRateLimiter
-from starlette.middleware.base import BaseHTTPMiddleware
-import redis
-
 from app.config_data import REDIS_CLIENT
+from fastapi import FastAPI, Request
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
+
+limiter = Limiter(
+    key_func=get_remote_address, storage_uri=REDIS_CLIENT, headers_enabled=True
+)
 
 
-def setup_throttle(app: FastAPI):
+async def setup_throttle(app: FastAPI):
     """Настройка rate limiting"""
 
-    redis_client = redis.Redis.from_url(REDIS_CLIENT, decode_responses=True)
+    app.state.limiter = limiter
+    app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
-    limiter = SlidingWindowRateLimiter(
-        capacity=5,
-        fill_rate=5,
-        scope="ip",
-        backend="redis",
-        redis_client=redis_client,
-    )
-
-    def get_real_ip(request: Request) -> str:
-        """Получение реального IP клиента из Nginx"""
+    @app.middleware("http")
+    async def proxy_headers_middleware(request: Request, call_next):
         forwarded = request.headers.get("X-Forwarded-For")
+
         if forwarded:
-            return forwarded.split(",")[0].strip()
-        return request.client.host or "unknown"
+            request.scope["client"] = (forwarded.split(",")[0].strip(), 0)
 
-    async def rate_limit_middleware(request: Request, call_next):
-        client_ip = get_real_ip(request)
-
-        if not limiter.allow_request(client_ip):
-            raise HTTPException(
-                status_code=429, detail="Too many requests. Please try again later."
-            )
-
-        response = await call_next(request)
-        response.headers["X-RateLimit-Limit"] = str(limiter.capacity)
-        return response
-
-    app.add_middleware(BaseHTTPMiddleware, dispatch=rate_limit_middleware)
+        return await call_next(request)

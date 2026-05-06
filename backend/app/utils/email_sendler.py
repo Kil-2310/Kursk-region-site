@@ -3,7 +3,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
 
-from ..config_data import SMTP_HOST, SMTP_PORT, SMTP_PASSWORD, SMTP_USER
+from ..config_data import SMTP_HOST, SMTP_PASSWORD, SMTP_PORT, SMTP_USER
 
 
 def send_email(

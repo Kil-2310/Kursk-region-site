@@ -1,9 +1,9 @@
+import base64
+
+from app.config_data import USER_PASSWORD, USER_USERNAME
 from fastapi import FastAPI, Request, Response
 from fastapi.security import HTTPBasic
 from starlette.middleware.base import BaseHTTPMiddleware
-import base64
-
-from app.config_data import USER_USERNAME, USER_PASSWORD
 
 security = HTTPBasic()
 

@@ -1,4 +1,5 @@
-from datetime import timedelta, datetime
+from datetime import datetime, timedelta
+
 from sqlalchemy import select
 
 from ..celery import celery_send_email

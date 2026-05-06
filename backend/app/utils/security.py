@@ -1,6 +1,6 @@
-import string
-import secrets
 import hashlib
+import secrets
+import string
 
 from ..config_data import SECRET_SALT_KEY
 

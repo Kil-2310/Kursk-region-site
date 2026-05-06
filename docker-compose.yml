@@ -2,7 +2,7 @@ services:
   redis:
     image: redis:7-alpine
     ports:
-      - "6380:6379"
+      - "6379"
     networks:
       - app_network
 
@@ -13,8 +13,6 @@ services:
     networks:
       - app_network
     environment:
-      - REDIS_BROKER=redis://redis:6379/0
-      - REDIS_BACKEND=redis://redis:6379/0
       - HOST=${HOST}
     env_file:
       - ./.env
@@ -29,10 +27,8 @@ services:
   worker:
     build: backend
     command: celery -A app.celery.celery_app worker --loglevel=info
-    network_mode: "host"
-    environment:
-      - REDIS_BROKER=redis://127.0.0.1:6380/0
-      - REDIS_BACKEND=redis://127.0.0.1:6380/0
+    networks:
+      - app_network
 
 networks:
   app_network:

@@ -1,10 +1,10 @@
-from typing import Union, Tuple
+from datetime import datetime, timedelta
+from typing import Tuple, Union
 
 import jwt
-from datetime import datetime, timedelta
 from fastapi import HTTPException
 
-from ..config_data import SECRET_KEY, ALGORITHM
+from ..config_data import ALGORITHM, SECRET_KEY
 
 
 class JWTManager:
@@ -14,6 +14,7 @@ class JWTManager:
 
     def create(self, user_id: int, role: str) -> str:
         """Создание токена"""
+
         payload = {
             "user_id": user_id,
             "role": role,
@@ -22,7 +23,11 @@ class JWTManager:
         return jwt.encode(payload, self.secret_key, algorithm=self.algorithm)
 
     def read(self, token: str) -> Union[Tuple[int, str], None]:
-        """Чтение токена, возвращает кортеж (user_id, role)"""
+        """Чтение токена"""
+
+        if token is None:
+            raise HTTPException(status_code=401, detail="Token not found")
+
         try:
             payload = jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
             user_id = payload.get("user_id")

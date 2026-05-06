@@ -1,9 +1,10 @@
-from typing import Union, List
+from typing import List, Union
 
-from sqlalchemy import select
 from fastapi import HTTPException
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from ..media.manager import MediaManager
 from .model import Comment
 
 
@@ -55,16 +56,16 @@ class CommentManager:
         return obj
 
     @classmethod
-    async def delete(cls, session: AsyncSession, user_id: int) -> None:
-        """Удаление комментария по id пользователя"""
+    async def delete(cls, session: AsyncSession, comment_obj: Comment) -> None:
+        """Удаление комментария"""
 
-        result = await session.execute(
-            select(Comment).where(Comment.user_id == user_id)
-        )
+        await session.refresh(comment_obj, attribute_names=["media"])
+        media_obj = comment_obj.media
 
-        obj = result.scalars().first()
+        if media_obj:
+            await MediaManager.delete(session, media_obj)
 
-        await session.delete(obj)
+        await session.delete(comment_obj)
 
     @classmethod
     async def get_all(cls, session) -> Union[List[Comment], None]:

@@ -1,8 +1,8 @@
 from datetime import datetime
-
 from typing import Optional
-from pydantic import BaseModel, Field, validator, EmailStr
-from email_validator import validate_email, EmailNotValidError
+
+from email_validator import EmailNotValidError, validate_email
+from pydantic import BaseModel, EmailStr, Field, validator
 
 from ..base_schemas import ServerBoolAnswer
 
@@ -56,4 +56,3 @@ class UserProfile(ServerBoolAnswer):
     full_name: str
     email: EmailStr
     created_at: datetime
-    verified: bool
