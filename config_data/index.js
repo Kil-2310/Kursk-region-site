@@ -1,0 +1,1 @@
+export { ENDPOINT_URL, SECRET_FORM_KEY } from './config';
