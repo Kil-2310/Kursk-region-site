@@ -2,7 +2,7 @@ import subprocess
 import os
 
 def deploy():
-    local_path = './'
+    local_path = './out/'
     remote_host = 'ck00181@92.53.96.105'
     remote_path = '/home/c/ck00181/Kursk_region/public_html/'
     
