@@ -30,16 +30,3 @@ jobs:
       # Проверить форматирование всех файлов
       - name: Check formatting with Prettier JavaScript
         run: npx prettier --check "src/**/*.{js,jsx,ts,tsx,json}" --config ./config_data/.prettierrc
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: format  # После успешного format
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'  # Только push в main (после слияния PR)
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      # Cd
-      - name: Run deploy
-        run: ./cd.py
