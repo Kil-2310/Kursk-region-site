@@ -1,12 +1,12 @@
-import { ENDPOINT_URL } from '/config_data'
+import { ENDPOINT_URL } from '/config_data';
 
 const userAPI = {
     APISendFeedback: async (data) => {
         return fetch(ENDPOINT_URL, {
             method: 'POST',
-            body: data
-        })
-    }
-}
+            body: data,
+        });
+    },
+};
 
-export default userAPI
+export default userAPI;

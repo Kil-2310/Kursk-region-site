@@ -3,12 +3,10 @@ import { userAPI } from '@/shared/api';
 
 const useUser = () => {
     const sendFeedback = useCallback((data) => {
+        userAPI.APISendFeedback(data).catch(() => alert('Ошибка отправки'));
+    }, []);
 
-        userAPI.APISendFeedback(data)
-            .catch(() => alert('Ошибка отправки'))
-    }, [])
-
-    return sendFeedback
+    return sendFeedback;
 };
 
 export default useUser;
