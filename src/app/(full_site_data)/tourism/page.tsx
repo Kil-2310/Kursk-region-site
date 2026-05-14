@@ -191,7 +191,7 @@ export default function TourismPage() {
 
             <Slider SliderTitle={articleName} />
 
-            <h2>Курская область: топ-3 для посещения</h2>
+            <h2>Курская область: топ-6 для посещения</h2>
 
             <Map />
 

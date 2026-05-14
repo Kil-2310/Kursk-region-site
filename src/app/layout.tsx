@@ -1,8 +1,6 @@
 import { YandexMetricaProvider, standardYMInitParameters } from '@artginzburg/next-ym';
-import { GoogleAnalytics } from '@next/third-parties/google';
 
 import type { Metadata, Viewport } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import './styles';
 
 import { ContestProvider } from '@/entities/model/ContestProvider';
@@ -10,16 +8,6 @@ import { ContestProvider } from '@/entities/model/ContestProvider';
 import Header from '@/shared/ui/Header';
 import SettingsPanel from '@/entities/ui/SettingsPanel';
 import ThemeProvider from './ThemeProvider';
-
-const geistSans = Geist({
-    variable: '--font-geist-sans',
-    subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-    variable: '--font-geist-mono',
-    subsets: ['latin'],
-});
 
 export const viewport: Viewport = {
     width: 'device-width',
@@ -129,6 +117,7 @@ export const metadata: Metadata = {
         'Региональный портал, Туризм, Культура, История, Regional Information Portal, Tourism, Culture, History',
 };
 
+// Тип ресурса
 function JsonLd() {
     return (
         <script
@@ -148,6 +137,7 @@ function JsonLd() {
     );
 }
 
+// Организация
 function LocalBusinessJsonLd() {
     return (
         <script
@@ -178,7 +168,7 @@ export default function RootLayout({
                 <LocalBusinessJsonLd />
             </head>
 
-            <body className={`${geistSans.variable} ${geistMono.variable}`}>
+            <body>
                 <ContestProvider>
                     <ThemeProvider>
                         <SettingsPanel />
@@ -190,8 +180,6 @@ export default function RootLayout({
                 <YandexMetricaProvider initParameters={standardYMInitParameters}>
                     {null}
                 </YandexMetricaProvider>
-
-                <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
             </body>
         </html>
     );

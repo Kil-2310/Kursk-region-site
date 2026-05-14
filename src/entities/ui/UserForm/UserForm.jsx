@@ -4,7 +4,7 @@ import { useState } from 'react';
 import styles from './UserForm.module.scss';
 import Button from '@/shared/ui/Button';
 import useUser from '@/entities/model/useUser';
-import { SECRET_FORM_KEY } from '/config_data'
+import { SECRET_FORM_KEY } from '/config_data';
 
 const UserForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -16,7 +16,7 @@ const UserForm = () => {
         const formData = new FormData(e.target);
 
         await sendFeedback(formData);
-        setIsSubmitting(false)
+        setIsSubmitting(false);
     };
 
     return (
